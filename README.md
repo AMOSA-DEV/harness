@@ -1,316 +1,132 @@
-<p align="center">
-  <img src="harness_banner.png" alt="Harness Banner" width="600">
-</p>
+# Context-Harness
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen.svg" alt="Version">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
-  <img src="https://img.shields.io/badge/Claude_Code-Plugin-purple.svg" alt="Claude Code Plugin">
-  <img src="https://img.shields.io/badge/Patterns-6_Architectures-orange.svg" alt="6 Architecture Patterns">
-  <img src="https://img.shields.io/badge/Mode-Agent_Teams-green.svg" alt="Agent Teams">
-  <a href="https://github.com/revfactory/harness/stargazers"><img src="https://img.shields.io/github/stars/revfactory/harness?style=social" alt="GitHub Stars"></a>
-</p>
+**English** | [한국어](README_KO.md)
 
-<p align="center">
-  <a href="#category--where-harness-sits"><img src="https://img.shields.io/badge/Layer-L3%20Meta--Factory-orange" alt="Layer"></a>
-  <a href="#category--where-harness-sits"><img src="https://img.shields.io/badge/Sub--layer-Team--Architecture%20Factory-teal" alt="Sub-layer"></a>
-  <a href="#"><img src="https://img.shields.io/badge/README-EN%20%7C%20KO%20%7C%20JA-lightgrey" alt="i18n"></a>
-</p>
+> Claude Code용 컨텍스트 기반 팀 아키텍처 팩토리. [Harness](reference/harness/)를 확장하여 프로젝트 컨텍스트 자동 초기화와 세션 관리를 추가했습니다.
 
-# Harness — The Team-Architecture Factory for Claude Code
+## 특징
 
-**English** | [한국어](README_KO.md) | [日本語](README_JA.md)
+- **컨텍스트 자동 생성** — `/harness` 호출 시 `context/`, `outputs/`, `BRIEF.md`, `HANDOFF.md`, `ROADMAP.md`, `CLAUDE.md` 자동 생성
+- **에이전트 팀 설계** — 6가지 아키텍처 패턴
+- **스킬 생성** — Progressive Disclosure로 효율적인 컨텍스트 관리
+- **워크스페이스 분리** — 소스(`skills/`)와 런타임(`_workspace/`) 분리로 깔끔한 git 히스토리
 
-> **Harness is a team-architecture factory for Claude Code.** Say **"build a harness for this project"** (English) or **"하네스 구성해줘"** (한국어) or **"ハーネスを構成して"** (日本語), and the plugin turns your domain description into an agent team and the skills they use — picked from six pre-defined team-architecture patterns.
+## 설치
 
-## Overview
+> **Private repo입니다.** 직접 설치만 가능합니다. Marketplace는 지원되지 않습니다.
 
-Harness leverages Claude Code's agent team system to decompose complex tasks into coordinated teams of specialized agents. Say "build a harness for this project" and it automatically generates agent definitions (`.claude/agents/`) and skills (`.claude/skills/`) tailored to your domain.
+### 방법 1: SSH Clone (권장)
 
-## Category — Where Harness Sits
-
-Harness lives at the **L3 Meta-Factory** layer of the Claude Code ecosystem — the layer that generates other harnesses rather than being one. Inside L3, we pick a specific sub-layer: **Team-Architecture Factory**.
-
-| Layer | What it does | Neighbors we coexist with |
-|-------|--------------|---------------------------|
-| **L3 — Meta-Factory / Team-Architecture Factory** (us) | Domain sentence → agent team + skills, via 6 pre-defined team patterns | — |
-| L3 — Meta-Factory / Runtime-Configuration Factory | Deterministic, repeatable runtime configurations | [coleam00/Archon](https://github.com/coleam00/Archon) |
-| L3 — Meta-Factory / Codex Runtime Port | Same concept, Codex runtime | [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) |
-| L2 — Cross-Harness Workflow | Standardize skills/rules/hooks across multiple harnesses | [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) |
-
-> Archon generates deterministic runtime configurations. Harness generates team architectures (pipeline, fan-out/fan-in, expert pool, producer-reviewer, supervisor, hierarchical delegation) plus the skills agents use. Different sub-layers of the same L3. Pick Archon for runtime determinism, Harness for team architecture, or combine them.
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=revfactory%2Fharness&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=revfactory/harness&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=revfactory/harness&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=revfactory/harness&type=date&legend=top-left" />
- </picture>
-</a>
-
-
-## Key Features
-
-- **Agent Team Design** — 6 architectural patterns: Pipeline, Fan-out/Fan-in, Expert Pool, Producer-Reviewer, Supervisor, and Hierarchical Delegation
-- **Skill Generation** — Auto-generates skills with Progressive Disclosure for efficient context management
-- **Orchestration** — Inter-agent data passing, error handling, and team coordination protocols
-- **Validation** — Trigger verification, dry-run testing, and with-skill vs without-skill comparison tests
-
-## Harness Evolution Mechanism
-
-The harness evolution mechanism feeds deltas (what worked / what didn't) back into the factory, so the next generation is measurably better. When a generated harness is used in a real project, the `/harness:evolve` skill captures the delta between the initial architecture and the shipped one, and feeds it back into the factory so the next generation for a similar domain starts closer to the shipped state.
-
-```
-Initial harness ──▶ Real project use ──▶ Shipped harness
-                                              │
-                                              ▼ (delta capture via /harness:evolve)
-                                        ┌───────────────┐
-                                        │  Factory      │◀── better next-gen draft
-                                        └───────────────┘
+```bash
+git clone git@github.com:AMOSA-DEV/harness.git
+cp -r harness/skills/harness ~/.claude/skills/harness
 ```
 
-We call this the **Harness Evolution Mechanism** (KR: 하네스 진화 메커니즘; JA: ハーネス進化メカニズム).
+### 방법 2: PAT로 HTTPS Clone
 
-## Workflow
-
-```
-Phase 1: Domain Analysis
-    ↓
-Phase 2: Team Architecture Design (Agent Teams vs Subagents)
-    ↓
-Phase 3: Agent Definition Generation (.claude/agents/)
-    ↓
-Phase 4: Skill Generation (.claude/skills/)
-    ↓
-Phase 5: Integration & Orchestration
-    ↓
-Phase 6: Validation & Testing
+```bash
+# https://github.com/settings/tokens 에서 'repo' 스코프를 가진 PAT 생성
+git clone https://<TOKEN>@github.com/AMOSA-DEV/harness.git
+cp -r harness/skills/harness ~/.claude/skills/harness
 ```
 
-## Installation
+### 방법 3: 직접 다운로드
 
-### Via Marketplace
-
-#### Add the marketplace
-```shell
-/plugin marketplace add revfactory/harness
+```bash
+# GitHub에서 ZIP 다운로드 후 압축 해제, 그리고:
+cp -r harness/skills/harness ~/.claude/skills/harness
 ```
 
-#### Install the plugin
-```shell
-/plugin install harness@harness
-```
-
-### Direct Installation as Global Skill
-
-```shell
-# Copy the skills directory to ~/.claude/skills/harness/
-cp -r skills/harness ~/.claude/skills/harness
-```
-
-## Plugin Structure
+## 사용법
 
 ```
-harness/
-├── .claude-plugin/
-│   └── plugin.json                 # Plugin manifest
-├── skills/
-│   └── harness/
-│       ├── SKILL.md                # Main skill definition (6-Phase workflow)
-│       └── references/
-│           ├── agent-design-patterns.md   # 6 architectural patterns
-│           ├── orchestrator-template.md   # Team/subagent orchestrator templates
-│           ├── team-examples.md           # 5 real-world team configurations
-│           ├── skill-writing-guide.md     # Skill authoring guide
-│           ├── skill-testing-guide.md     # Testing & evaluation methodology
-│           └── qa-agent-guide.md          # QA agent integration guide
+하네스 구성해줘
+Build a harness for this project
+```
+
+## 아키텍처 패턴
+
+### 1. 파이프라인 (Pipeline)
+순차적 의존 작업. 이전 에이전트의 출력이 다음 에이전트의 입력이 됩니다.
+
+```
+[분석] → [설계] → [구현] → [검증]
+```
+
+**적합한 경우:** 단계 간 강한 순차 의존성
+**예시:** 소설 집필 — 세계관 → 캐릭터 → 플롯 → 집필 → 편집
+
+### 2. 팬아웃/팬인 (Fan-out/Fan-in)
+병렬 독립 작업 후 결과 통합.
+
+```
+         ┌→ [전문가A] ─┐
+[입력] ─┼→ [전문가B] ─┼→ [통합]
+         └→ [전문가C] ─┘
+```
+
+**적합한 경우:** 동일 입력에 대해 여러 관점 필요
+**예시:** 종합 리서치 — 공식/미디어/커뮤니티/배경 병렬 조사 → 통합 보고서
+
+### 3. 전문가 풀 (Expert Pool)
+상황에 따라 적절한 전문가를 선택 호출.
+
+```
+[라우터] → { 전문가A | 전문가B | 전문가C }
+```
+
+**적합한 경우:** 입력 유형에 따라 다른 처리 필요
+**예시:** 코드 리뷰 — 해당 영역 전문가만 호출 (보안/성능/아키텍처)
+
+### 4. 생성-검증 (Producer-Reviewer)
+생성과 품질 검증이 쌍으로 동작.
+
+```
+[생성] → [검증] → (문제 있으면) → [생성] 재시도
+```
+
+**적합한 경우:** 산출물 품질 보장이 중요하고 객관적 기준 존재
+**예시:** 웹툰 — 작가 생성 → 검수자 확인 → 문제 패널 재생성
+
+### 5. 감독자 (Supervisor)
+중앙 에이전트가 작업 상태를 관리하며 동적으로 분배.
+
+```
+         ┌→ [워커A]
+[감독자] ─┼→ [워커B]    ← 감독자가 모니터링하고 조정
+         └→ [워커C]
+```
+
+**적합한 경우:** 작업량 가변적이거나 런타임에 분배 결정 필요
+**예시:** 대규모 코드 마이그레이션 — 감독자가 파일 목록 분석 후 워커 배치
+
+### 6. 계층적 위임 (Hierarchical Delegation)
+상위 에이전트가 하위 에이전트에 재귀적으로 위임.
+
+```
+[총괄] → [팀장A] → [실무자A1]
+                  → [실무자A2]
+       → [팀장B] → [실무자B1]
+```
+
+**적합한 경우:** 문제가 자연스럽게 계층적으로 분필되는 구조
+**예시:** 풀스택 앱 — 총괄 → 프론트엔드팀장 → (UI/로직/테스트) + 백엔드팀장 → (API/DB/테스트)
+
+## 프로젝트 구조
+
+```
+context-harness/
+├── skills/harness/          # 소스 (git 추적)
+│   ├── SKILL.md
+│   ├── references/
+│   └── team-architecture-templates/
+├── _workspace/              # 런타임 산출물 (git 제외)
+├── reference/harness/       # 원작자 Harness (git 제외)
+├── LICENSE
+├── NOTICE
 └── README.md
 ```
 
-## Usage
+## 라이선스
 
-Trigger in Claude Code with prompts like:
-
-```
-Build a harness for this project
-Design an agent team for this domain
-Set up a harness
-```
-
-### Execution Modes
-
-| Mode | Description | Recommended For |
-|------|-------------|-----------------|
-| **Agent Teams** (default) | TeamCreate + SendMessage + TaskCreate | 2+ agents requiring collaboration |
-| **Subagents** | Direct Agent tool invocation | One-off tasks, no inter-agent communication needed |
-
-<p align="center">
-  <img src="harness_team.png" alt="Harness Agent Team" width="500">
-</p>
-
-### Architecture Patterns
-
-| Pattern | Description |
-|---------|-------------|
-| Pipeline | Sequential dependent tasks |
-| Fan-out/Fan-in | Parallel independent tasks |
-| Expert Pool | Context-dependent selective invocation |
-| Producer-Reviewer | Generation followed by quality review |
-| Supervisor | Central agent with dynamic task distribution |
-| Hierarchical Delegation | Top-down recursive delegation |
-
-## Output
-
-Files generated by Harness:
-
-```
-your-project/
-├── .claude/
-│   ├── agents/          # Agent definition files
-│   │   ├── analyst.md
-│   │   ├── builder.md
-│   │   └── qa.md
-│   └── skills/          # Skill files
-│       ├── analyze/
-│       │   └── SKILL.md
-│       └── build/
-│           ├── SKILL.md
-│           └── references/
-```
-
-## Use Cases — Try These Prompts
-
-Copy any prompt below into Claude Code after installing Harness:
-
-**Deep Research**
-```
-Build a harness for deep research. I need an agent team that can investigate
-any topic from multiple angles — web search, academic sources, community
-sentiment — then cross-validate findings and produce a comprehensive report.
-```
-
-**Website Development**
-```
-Build a harness for full-stack website development. The team should handle
-design, frontend (React/Next.js), backend (API), and QA testing in a
-coordinated pipeline from wireframe to deployment.
-```
-
-**Webtoon / Comic Production**
-```
-Build a harness for webtoon episode production. I need agents for story
-writing, character design prompts, panel layout planning, and dialogue
-editing. They should review each other's work for style consistency.
-```
-
-**YouTube Content Planning**
-```
-Build a harness for YouTube content creation. The team should research
-trending topics, write scripts, optimize titles/tags for SEO, and plan
-thumbnail concepts — all coordinated by a supervisor agent.
-```
-
-**Code Review & Refactoring**
-```
-Build a harness for comprehensive code review. I want parallel agents
-checking architecture, security vulnerabilities, performance bottlenecks,
-and code style — then merging all findings into a single report.
-```
-
-**Technical Documentation**
-```
-Build a harness that generates API documentation from this codebase.
-Agents should analyze endpoints, write descriptions, generate usage
-examples, and review for completeness.
-```
-
-**Data Pipeline Design**
-```
-Build a harness for designing data pipelines. I need agents for schema
-design, ETL logic, data validation rules, and monitoring setup that
-delegate sub-tasks hierarchically.
-```
-
-**Marketing Campaign**
-```
-Build a harness for marketing campaign creation. The team should research
-the target market, write ad copy, design visual concepts, and set up
-A/B test plans with iterative quality review.
-```
-
-## Coexistence — Harness and Neighbors
-
-Harness is not alone in the Claude Code / agent-framework ecosystem. The following repos live in adjacent layers; each is described in a parallel "X is …, Harness is …" form so you can pick the one that fits your need or combine several.
-
-| Repo | Their position | Relationship to Harness |
-|------|----------------|-------------------------|
-| [coleam00/Archon](https://github.com/coleam00/Archon) | "harness builder" — deterministic, repeatable runtime configurations | **Same L3, neighbor sub-layer.** Archon is a Runtime-Configuration Factory, Harness is a Team-Architecture Factory. Pick Archon for runtime determinism, Harness for team architecture, or combine them. |
-| [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) | Codex port of the same concept | **Same L3, different runtime.** Use Harness on Claude Code, meta-harness on Codex. |
-| [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) | "Agent harness performance & workflow layer" (sits on top of existing harnesses) | **Different layer.** ECC is a standardization layer across harnesses; Harness is a factory that generates harnesses. Serial combination possible. |
-| [wshobson/agents](https://github.com/wshobson/agents) | Subagent / skill catalog (182 agents, 149 skills) | **Factory ↔ parts supply.** wshobson is a catalog to shop from; Harness designs the team. Absorb wshobson entries as parts inside a Harness-generated team. |
-| [LangGraph](https://langchain-ai.github.io/langgraph/) | State-graph orchestration, LLM-agnostic | **Different track.** LangGraph is for long-running, state-recoverable orchestration; Harness is for fast Claude-Code-native team design. |
-
-## Built with Harness
-
-### Harness 100
-
-**[revfactory/harness-100](https://github.com/revfactory/harness-100)** — 100 production-ready agent team harnesses across 10 domains, available in both English and Korean (200 packages total). Each harness ships with 4-5 specialist agents, an orchestrator skill, and domain-specific skills — all generated by this plugin. 1,808 markdown files covering content creation, software development, data/AI, business strategy, education, legal, health, and more.
-
-### Research: A/B Testing Harness Effectiveness
-
-**[revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)** — A controlled experiment across 15 software engineering tasks measuring the impact of structured pre-configuration on LLM code agent output quality.
-
-| Metric | Without Harness | With Harness | Improvement |
-|--------|:-:|:-:|:-:|
-| Average Quality Score | 49.5 | 79.3 | **+60%** |
-| Win Rate | — | — | **100%** (15/15) |
-| Output Variance | — | — | **-32%** |
-
-Key finding: effectiveness scales with task complexity — the harder the task, the greater the improvement (+23.8 Basic, +29.6 Advanced, +36.2 Expert).
-
-**Exact phrasing to use everywhere:** +60% avg quality (49.5 → 79.3), 15/15 win-rate, −32% variance (n=15, author-measured A/B, third-party replications pending).
-
-> Full paper: *Hwang, M. (2026). Harness: Structured Pre-Configuration for Enhancing LLM Code Agent Output Quality.*
-
-## Requirements
-
-- [Agent Teams enabled](https://code.claude.com/docs/en/agent-teams): `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
-
-## FAQ
-
-<details>
-<summary><b>Q1. Isn't "+60%" oversold?</b></summary>
-
-**A.** The +60% figure comes from an **author-measured A/B (n=15, 15 tasks, measured on the sister repo `claude-code-harness`)**. Every citation in this repo pairs the number with the disclosure "n=15, author-measured, third-party replications pending" in the same sentence. For adoption decisions, we recommend running a 2–4 week internal pilot and measuring your own numbers.
-
-**Evidence:**
-- Author A/B: [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)
-- Paper: *Hwang, M. (2026). Harness: Structured Pre-Configuration for Enhancing LLM Code Agent Output Quality*
-</details>
-
-<details>
-<summary><b>Q2. Why "harness factory" and not "harness builder"? Isn't this competing with Archon?</b></summary>
-
-**A.** Archon generates deterministic runtime configurations — it's a **Runtime-Configuration Factory**. Harness generates agent team architectures (team structure, message protocols, review gates) — it's a **Team-Architecture Factory**. They are **neighbor sub-layers of the same L3 Meta-Factory** and serve different needs. Pick Archon for runtime determinism, Harness for team-architecture patterns, or combine them (design architecture with Harness → deploy runtime with Archon).
-
-**Evidence:**
-- Archon self-definition: [clawfit docs/reference-levels.md](https://github.com/hongsw/clawfit/blob/main/docs/reference-levels.md)
-- Sub-layer declaration: see the **Category — Where Harness Sits** section above
-- Archon repo: [github.com/coleam00/Archon](https://github.com/coleam00/Archon)
-</details>
-
-<details>
-<summary><b>Q3. Isn't "Claude Code only" too narrow? What about Gemini/Codex?</b></summary>
-
-**A.** Currently the official runtime is Claude Code only. A Codex port of the same concept — [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) — is already public, so Codex teams can start there. Harness chose "Claude-Code-native, deep" over "multi-runtime, shallow"; cross-runtime collaboration with sibling repos (meta-harness, harness-init, OpenRig) is on the roadmap.
-
-**Evidence:**
-- Codex port: [github.com/SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness)
-- Cross-runtime scaffolder: [github.com/Gizele1/harness-init](https://github.com/Gizele1/harness-init)
-</details>
-
-## License
-
-Apache 2.0
+Apache 2.0 — 원작자 [robin](https://github.com/revfactory/harness)의 Harness를 기반으로 합니다.
