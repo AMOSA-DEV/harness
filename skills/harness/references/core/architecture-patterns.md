@@ -10,7 +10,8 @@
 | Specialist | 특정 영역을 맡는 역할 |
 | Reviewer | 산출물 품질과 경계면 정합성을 검증하는 역할 |
 | Shared workspace | 중간 산출물을 저장하는 파일 기반 교환 장소 |
-| Pointer file | 다음 세션이 하네스를 발견하게 하는 런타임별 instruction 파일 |
+| Context system | 장기 방향, 세션 목표, 작업 규칙, 인계 정보를 관리하는 파일 기반 참조 체계 |
+| Pointer file | 런타임이 처음 읽는 상위 instruction 파일. 금지 규칙, 기본 원칙, context 진입점을 담는다. |
 
 ## 패턴
 

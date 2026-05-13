@@ -19,8 +19,6 @@
 
 ## 작업 스타일
 - {{작업 스타일}}
-
-*최종 업데이트: {{YYYY-MM-DD}}*
 ```
 
 ## BRAND-VOICE.md
@@ -53,15 +51,22 @@
 ```markdown
 # Working Rules
 
+MUST/SHOULD는 팀과 도메인에 맞게 교체한다. 단, Context 관리 규칙은 세션 간 품질 유지를 위해 유지한다.
+
+## Context 관리 규칙
+1. 작업 전 `ROADMAP.md`로 장기 방향을 확인한다.
+2. `BRIEF.md`로 이번 세션의 목표, 범위, 완료 조건을 확인한다.
+3. 작업에 필요한 도메인/사용자/문체 정보가 있으면 `context/` 아래 관련 파일을 찾아 읽는다.
+4. 작업 완료 후 `HANDOFF.md`를 갱신한다.
+5. 목표, 범위, 우선순위, 진행 상태, 검증 계획이 바뀐 경우 `ROADMAP.md`를 갱신한다.
+6. 반복될 가능성이 있는 판단, 실수, 팀 합의, 도메인 규칙을 배운 경우 `context/LESSONS.md`에 기록한다.
+7. API 키, 토큰, 비밀번호, 인증 정보 등 민감정보는 생성/수집/수정/노출하지 않는다.
+
 ## MUST
-1. 중간 산출물은 `_workspace/` 아래에 저장한다.
-2. 파일명은 `{phase}_{role}_{artifact}.{ext}` 형식을 사용한다.
-3. 완료 후 `HANDOFF.md`, `ROADMAP.md`, `context/LESSONS.md`를 갱신한다.
-4. 보안 정보, API 키, 인증 정보 작업은 하지 않는다.
+1. {{팀이 반드시 지킬 규칙}}
 
 ## SHOULD
-1. 변경 이유를 짧게 기록한다.
-2. 새 규칙을 추가하면 검증 방법도 함께 적는다.
+1. {{팀이 권장하는 규칙}}
 ```
 
 ## GLOSSARY.md
@@ -87,6 +92,10 @@
 ```markdown
 # Lessons
 
+## 기록 기준
+- 반복될 가능성이 있는 판단, 실수, 팀 합의, 도메인 규칙을 기록한다.
+- 단순 작업 로그나 일회성 진행 상황은 `HANDOFF.md`에 남긴다.
+
 ## 변경 이력
 | 날짜 | 변경 내용 | 대상 | 사유 |
 |---|---|---|---|
@@ -103,6 +112,10 @@
 
 ```markdown
 # Brief
+
+## 작성 기준
+- 세션 시작 시 이번 세션의 목표, 범위, 완료 조건이 명확하지 않으면 작성한다.
+- 단순 질의나 즉시 끝나는 작업은 생략할 수 있다.
 
 ## 초점
 {{이번 세션 목표 한 줄}}
@@ -145,6 +158,11 @@
 ```markdown
 # Roadmap
 
+## 작성 기준
+- 여러 세션에 걸쳐 목표, 범위, 우선순위, 진행 상태를 추적해야 할 때 작성한다.
+- 작업이 한 세션 안에 끝나기 어렵거나 다음 세션의 의사결정에 영향을 주면 작성한다.
+- 단발성 작업은 `HANDOFF.md`에 다음 작업만 남기고 `ROADMAP.md`는 생략할 수 있다.
+
 ## 목표
 1.
 2.
@@ -172,7 +190,7 @@ Pointer file 이름은 runtime adapter를 따른다.
 트리거: {{도메인}} 관련 다단계 작업, 하네스 실행/수정/점검 요청 시 {{orchestrator-skill}}을 사용한다.
 
 ## Context 참조 규칙
-1. 세션 시작 시 `context/` 아래 Markdown 파일을 확인한다.
-2. 작업 전 `BRIEF.md`와 `context/WORKING-RULES.md`를 읽는다.
-3. 완료 후 `HANDOFF.md`, `ROADMAP.md`, `context/LESSONS.md`를 갱신한다.
+1. 작업 전 `ROADMAP.md`, `BRIEF.md`, `context/WORKING-RULES.md`를 읽는다.
+2. 상세한 Context 관리 기준은 `context/WORKING-RULES.md`를 따른다.
+3. 작업에 필요한 도메인/사용자/문체 정보가 있으면 `context/` 아래 관련 파일을 찾아 읽는다.
 ```
