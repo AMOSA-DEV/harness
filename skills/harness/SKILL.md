@@ -20,12 +20,11 @@ description: "하네스를 구성, 점검, 재설계합니다. 프로젝트/도�
    - Codex: `references/runtimes/codex/adapter.md`
    - Claude Code: `references/runtimes/claude-code/adapter.md`
 7. 팀 아키텍처 패턴 상세가 필요하면 `references/core/team-patterns/{pattern}.md`와 선택한 런타임의 `execution-model.md`를 함께 읽는다.
-8. 오케스트레이터를 작성할 때는 `references/templates/core/orchestrator.md`와 `references/templates/runtimes/{runtime}/orchestrator-overlay.md`를 함께 읽는다.
+8. 오케스트레이터를 작성할 때는 `references/templates/core/orchestrator.md`와 `references/templates/runtimes/{runtime}/orchestrator-overlay.md`를 함께 읽는다. 오케스트레이터의 Session Update Phase에 포함할 파일별 형식(HANDOFF.md, ROADMAP.md, LESSONS.md, BRIEF.md)은 `references/templates/core/context-writing-templates.md`에서 확인한다.
 9. 상세 보충이 필요할 때만 추가 reference를 읽는다:
    - 스킬 작성 세부: `references/core/skill-authoring-details.md`
    - 스킬 테스트: `references/core/skill-testing.md`
    - QA 역할 검증: `references/core/qa-role-validation.md`
-   - 컨텍스트 템플릿: `references/templates/core/context-writing-templates.md`
    - Claude Code 실행 모델: `references/runtimes/claude-code/execution-model.md`
    - Claude Code 예시: `references/examples/claude-code/team-examples.md`
    - Codex 실행 모델: `references/runtimes/codex/execution-model.md`

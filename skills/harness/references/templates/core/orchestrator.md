@@ -143,12 +143,14 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 
 ### 9. Phase 5: Session Update
 
-작업 완료 후 다음 파일을 갱신한다:
+**아래 체크리스트를 완료하기 전에 작업 완료를 보고하지 않는다.**
 
-- `HANDOFF.md`: 완료 작업, 결정 사항, 다음 할 일
-- `ROADMAP.md`: 진행 상황
-- `context/LESSONS.md`: 변경 이력과 학습 사항
-- `BRIEF.md`: 세션 목표 달성 여부
+작업 완료 후 다음 파일을 갱신한다. 각 파일의 형식은 `references/templates/core/context-writing-templates.md`의 해당 템플릿을 따른다:
+
+- `HANDOFF.md`: 완료 작업, 결정 사항, 다음 할 일 (HANDOFF.md 템플릿 참조)
+- `ROADMAP.md`: 진행 상황 (ROADMAP.md 템플릿 참조)
+- `context/LESSONS.md`: 변경 이력과 학습 사항 (LESSONS.md 템플릿 참조)
+- `BRIEF.md`: 세션 목표 달성 여부 (BRIEF.md 템플릿 참조)
 
 pointer file에는 긴 변경 이력을 넣지 않는다.
 
@@ -162,7 +164,7 @@ pointer file에는 긴 변경 이력을 넣지 않는다.
 - [ ] `BRIEF.md`에 세션 목표 달성 여부 기록
 - [ ] `_workspace/` 보존 여부 확인
 
-갱신이 과한 작은 작업이면 어떤 파일을 갱신하지 않았는지와 이유를 짧게 남긴다. 하네스 생성, 수정, 감사, 대규모 실행은 기본적으로 갱신 대상이다.
+체크리스트 항목을 모두 확인한 후에만 "작업 완료"를 보고한다. 갱신이 과한 작은 작업이면 어떤 파일을 갱신하지 않았는지와 이유를 짧게 남긴다. 하네스 생성, 수정, 감사, 대규모 실행은 기본적으로 갱신 대상이다.
 
 ## Failure Policy
 
