@@ -75,10 +75,8 @@ context-harness/
 │   ├── references/
 │   │   ├── core/
 │   │   ├── runtimes/
-│   │   ├── context/
 │   │   ├── templates/
-│   │   ├── examples/
-│   │   └── meta/
+│   │   └── examples/
 ├── _workspace/
 ├── LICENSE
 ├── NOTICE

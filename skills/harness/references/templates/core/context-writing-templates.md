@@ -1,6 +1,6 @@
 # Context Writing Templates
 
-프로젝트 루트의 context 파일과 세션 파일을 작성할 때 쓰는 런타임 중립 템플릿이다.
+Context protocol이 사용하는 프로젝트 context 파일과 세션 파일의 런타임 중립 템플릿이다.
 
 ## ABOUT-ME.md
 
@@ -193,4 +193,7 @@ Pointer file 이름은 runtime adapter를 따른다.
 1. 작업 전 `ROADMAP.md`, `BRIEF.md`, `context/WORKING-RULES.md`를 읽는다.
 2. 상세한 Context 관리 기준은 `context/WORKING-RULES.md`를 따른다.
 3. 작업에 필요한 도메인/사용자/문체 정보가 있으면 `context/` 아래 관련 파일을 찾아 읽는다.
+4. 작업 완료 후 `HANDOFF.md`, `ROADMAP.md`, `context/LESSONS.md`, `BRIEF.md` 갱신 필요 여부를 확인한다.
 ```
+
+Pointer file에는 역할/스킬 전체 목록, 긴 실행 절차, 변경 이력을 넣지 않는다. 런타임별 세부 템플릿은 `references/runtimes/{runtime}/adapter.md`를 따른다.
