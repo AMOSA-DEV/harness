@@ -8,9 +8,10 @@ The original work provided the architectural patterns, team structure concepts,
 and skill orchestration principles that were extended and evolved in this project.
 
 This project modifies and extends the original work with:
-- Automated project context initialization (context/, outputs/, BRIEF.md, etc.)
+- Automated project context initialization (context/, BRIEF.md, HANDOFF.md, ROADMAP.md)
 - Session management system (ROADMAP, BRIEF, HANDOFF)
-- Workspace constitution (CLAUDE.md) with context reference rules
-- Team architecture templates for 6 architectural patterns
+- Runtime-specific pointer files (AGENTS.md or CLAUDE.md) with context reference rules
+- Runtime adapters for Codex-first and Claude Code harness generation
+- Team architecture references for 6 architectural patterns
 
 For the original work, see: reference/harness/
