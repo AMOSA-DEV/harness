@@ -28,9 +28,9 @@ Producer-Reviewer는 생성 역할과 검증 역할을 분리해 품질을 통�
 
 | 역할 | 책임 | 출력 |
 |---|---|---|
-| producer | 초안, 구현, 산출물을 만든다 | `_workspace/02_draft.md` |
-| reviewer | 기준에 따라 PASS, FIX, REDO를 판단한다 | `_workspace/03_review.md` |
-| producer | 필요한 수정 또는 재생성을 수행한다 | `_workspace/04_revision.md` |
+| producer | 초안, 구현, 산출물을 만든다 | `_workspace/machine/02_draft.md` |
+| reviewer | 기준에 따라 PASS, FIX, REDO를 판단한다 | `_workspace/audit/03_review.md` |
+| producer | 필요한 수정 또는 재생성을 수행한다 | `_workspace/machine/04_revision.md` |
 
 ## 오케스트레이션
 

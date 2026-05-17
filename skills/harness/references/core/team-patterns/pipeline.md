@@ -28,10 +28,10 @@ Pipeline은 단계가 순서대로 이어지는 팀 구조다. 이전 역할의 
 
 | 단계 | 역할 | 책임 | 입력 | 출력 |
 |---|---|---|---|---|
-| 1 | analyst | 목표, 제약, 요구사항 정리 | 사용자 요청, BRIEF | `_workspace/01_analyst.md` |
-| 2 | designer | 작업 계획이나 구조 설계 | analyst 출력 | `_workspace/02_designer.md` |
-| 3 | producer | 산출물 생성 또는 구현 | designer 출력 | `_workspace/03_producer.md` |
-| 4 | verifier | 결과 검증과 누락 확인 | producer 출력 | `_workspace/04_verifier.md` |
+| 1 | analyst | 목표, 제약, 요구사항 정리 | 사용자 요청, BRIEF | `_workspace/machine/01_analyst.md` |
+| 2 | designer | 작업 계획이나 구조 설계 | analyst 출력 | `_workspace/machine/02_designer.md` |
+| 3 | producer | 산출물 생성 또는 구현 | designer 출력 | `_workspace/machine/03_producer.md` |
+| 4 | verifier | 결과 검증과 누락 확인 | producer 출력 | `_workspace/audit/04_verifier.md` |
 
 ## 오케스트레이션
 

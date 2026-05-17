@@ -38,7 +38,7 @@
 
 팀 재구성:
 
-Phase별로 다른 전문가 조합이 필요하면 이전 팀의 산출물을 `_workspace/`에 저장한 뒤 팀을 정리하고 새 팀을 구성한다. 새 팀은 `_workspace/`에 남은 산출물과 context 파일을 읽고 이어받는다.
+Phase별로 다른 전문가 조합이 필요하면 이전 팀의 산출물을 목적에 맞는 `_workspace/` 하위 폴더에 저장한 뒤 팀을 정리하고 새 팀을 구성한다. 새 팀은 `_workspace/machine/`에 남은 역할 산출물과 context 파일을 읽고 이어받는다.
 
 ## Subagent Mode
 

@@ -13,6 +13,9 @@
 | Agent spec | `.codex/agents/{agent-name}.md` |
 | Orchestrator skill | `.codex/skills/{orchestrator-name}/SKILL.md` |
 | Runtime workspace | `_workspace/` |
+| Audit outputs | `_workspace/audit/` |
+| Machine handoff outputs | `_workspace/machine/` |
+| Human review outputs | `_workspace/human/` |
 
 ## Adapter Rules
 
@@ -31,8 +34,8 @@
 | Parallel fan-out | 여러 `spawn_agent`를 병렬로 실행, 결과는 파일/최종 메시지로 수집 |
 | Reviewer | 별도 worker/explorer 또는 메인 세션의 독립 검토 단계 |
 | Direct communication | 보장되지 않음. 메인 세션이 `send_input`으로 필요한 지시를 중계 |
-| Shared task state | `_workspace/` ledger 또는 오케스트레이터 체크리스트 |
-| Shared workspace | `_workspace/{phase}_{role}_{artifact}.md` |
+| Shared task state | `_workspace/machine/` ledger 또는 오케스트레이터 체크리스트 |
+| Shared workspace | `_workspace/machine/{phase}_{role}_{artifact}.md` |
 | Handoff | `HANDOFF.md`, `ROADMAP.md`, `context/LESSONS.md` 갱신 |
 
 Codex에서 delegation이 불가능하거나 요청되지 않았으면, 오케스트레이터는 메인 세션에서 같은 단계를 순차 실행한다.

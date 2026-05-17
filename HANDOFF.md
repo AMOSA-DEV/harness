@@ -36,6 +36,9 @@
 24. `templates/runtimes/*/overlay.md`는 실행 모델과 중복되어 제거했다. 패턴 매핑은 각 런타임 `execution-model.md`로 옮기고, templates runtime 문서는 orchestrator template overlay만 남겼다.
 25. 현재 `SKILL.md`를 `origin/main`의 원본과 대조했다. reference 분리로 보존된 내용은 많지만 Phase 4-7이 과도하게 압축된 부분이 있어 역할/스킬 생성, 오케스트레이션, 검증/테스트, 진화 기준을 top-level에 다시 보강했다.
 26. 현재 스킬의 문서 참조와 런타임 경계 최종 검증을 수행했다. 예전 `references/runtimes/{runtime}.md` 참조 2곳과 모호한 체크리스트 참조 1곳을 수정했고, 결과를 `_workspace/07_final_skill_validation.md`에 기록했다.
+27. `_workspace/` 산출물 규칙을 목적별 3개 폴더(`audit/`, `machine/`, `human/`)로 표준화했다. 새 실행 시 기존 `_workspace/` 전체를 `_workspace_archive/YYYYMMDD_HHMMSS/` 또는 프로젝트 표준 timestamp 경로에 백업하고, 백업 위치를 감사 메모나 HANDOFF에 기록하도록 core/template/runtime 문서를 맞췄다. 변경 감사는 `_workspace/audit/workspace-structure-update-2026-05-17.md`에 남겼다.
+28. 개선된 작업에 대해 정적 QA와 설치 드라이런을 수행했다. Markdown 링크, `SKILL.md` frontmatter, plugin JSON, Codex/Claude Code 설치 경로, 중첩 복사 회귀, 보안 금지 지시를 확인했고, README 설치 명령과 프로젝트 구조 예시를 수정했다. 결과는 `_workspace/audit/qa-test-2026-05-17.md`에 남겼다.
+29. `/private/tmp/harness-codex-cli-e2e`에서 Codex CLI E2E를 시도했다. CLI는 `harness` 스킬을 읽고 Pipeline + Producer-Reviewer 설계 질문까지 진행했지만, 현재 샌드박스에서는 `~/.codex/state_5.sqlite` 쓰기 제한으로 resume이 막혔다. 동일 승인 기준으로 샘플 프로젝트의 `AGENTS.md`, `context/`, `.codex/agents/`, `.codex/skills/`, `_workspace/` 산출물을 직접 생성하고 필수 파일/frontmatter/정책 표식 검증을 통과했다. 세부 결과는 `_workspace/audit/qa-test-2026-05-17.md`에 갱신했다.
 
 ## 중요한 원칙
 
@@ -46,19 +49,21 @@
 - 템플릿성 내용은 `references/templates/`에 둔다.
 - 특정 런타임 예시는 `references/examples/{runtime}/`에 둔다.
 - 원본 내용을 단순 삭제하거나 과도하게 요약하지 않는다.
+- 새 하네스 산출물은 `_workspace/audit/`, `_workspace/machine/`, `_workspace/human/`으로 분리한다.
+- 새 실행으로 기존 `_workspace/`를 보존해야 하면 삭제하지 말고 `_workspace_archive/YYYYMMDD_HHMMSS/` 또는 프로젝트 표준 timestamp 경로에 전체 백업한다.
 - 단, 최종 산출물인 `skills/harness/references/` 문서 안에는 “원본에서는”, “이전 작업에서”, “복원했다”, “재배치했다” 같은 작업 보고서/비교 메모를 남기지 않는다. 그런 내용은 `HANDOFF.md`나 `_workspace/` 감사 메모에만 둔다.
 - 보안 관련 작업, 환경변수, API 키, 인증 정보는 다루지 않는다.
 
 ## 다음 세션 최우선 작업
 
-실제 Codex/Claude Code 런타임에서 하네스 생성까지 실행 검증한다.
+실제 Codex/Claude Code 런타임에서 하네스 생성까지 실행 검증한다. Codex는 스킬 로딩과 설계 판단까지 확인했지만, 파일 생성 완료까지의 CLI E2E는 현재 샌드박스 제한으로 아직 미완료다.
 
 반드시 확인할 것:
 
 1. 현재 `skills/harness/references/`는 최종 reference 톤으로 정리된 상태다. 작업 보고서 표현은 다시 생긴 부분만 좁혀서 확인한다.
-2. Codex 런타임에서 샘플 하네스 생성 플로우를 실행해 pointer file, `.codex/skills`, `.codex/agents`, `_workspace`, context/session 갱신이 실제로 맞물리는지 본다.
+2. Codex 런타임에서 샘플 하네스 생성 플로우를 다시 실행할 수 있으면 pointer file, `.codex/skills`, `.codex/agents`, `_workspace`, context/session 갱신이 실제 CLI 파일 생성까지 맞물리는지 본다. 홈 Codex state DB 쓰기가 막히면 `_workspace/audit/qa-test-2026-05-17.md`의 대체 검증 결과를 기준으로 남은 차이만 기록한다.
 3. Claude Code 런타임은 실제 실행이 어렵다면 최소한 adapter 산출물 경로와 overlay 지시가 Claude Code semantics와 충돌하지 않는지 검증한다.
-4. 검증 결과는 `_workspace/` 감사 메모에 남기고, `HANDOFF.md`의 남은 의심 지점을 갱신한다.
+4. 검증 결과는 `_workspace/audit/` 감사 메모에 남기고, `HANDOFF.md`의 남은 의심 지점을 갱신한다.
 5. 수정 후 `git diff --check`를 실행한다.
 
 ## 다음 세션 시작 프롬프트
@@ -67,14 +72,14 @@
 현재 작업은 `harness/` 내부 git 저장소의 `dev` 브랜치에서 진행 중이다.
 
 먼저 `harness/HANDOFF.md`를 읽고, 이전 세션에서 완료한 작업과 남은 의심 지점을 파악하라.
-그 다음 필요할 때만 `_workspace/05_runtime_gap_fill_audit.md`, `_workspace/06_references_flow_audit.md`, `_workspace/07_final_skill_validation.md`를 읽어 세부 보강 내역을 확인하라.
+그 다음 필요할 때만 `_workspace/05_runtime_gap_fill_audit.md`, `_workspace/06_references_flow_audit.md`, `_workspace/07_final_skill_validation.md`, `_workspace/audit/workspace-structure-update-2026-05-17.md`, `_workspace/audit/qa-test-2026-05-17.md`를 읽어 세부 보강 내역을 확인하라.
 
 목표:
 Claude Code 원본 하네스를 Codex로 전환하는 작업이 아니다.
 원본 하네스의 의미와 실행 품질을 보존하면서, Claude Code와 Codex 등 여러 런타임을 지원할 수 있도록 `core / runtime adapter / template / example / obsolete` 구조를 계속 검증하고 개선하는 것이다.
 
 현재 문제:
-정적 문서 정리는 대부분 끝났다. 남은 핵심 리스크는 실제 Codex/Claude Code 런타임에서 하네스 생성까지 실행했을 때 adapter, overlay, context/session 갱신 규칙이 자연스럽게 맞물리는지 아직 확인하지 못했다는 점이다.
+정적 문서 정리는 대부분 끝났다. Codex CLI는 스킬 로딩과 설계 판단까지 확인했고 샘플 산출물 대체 검증도 통과했다. 남은 핵심 리스크는 Codex CLI가 파일 생성까지 끝내는 full E2E와 Claude Code 런타임 실제 실행 또는 정적 adapter 검증이다.
 
 중요 원칙:
 - Codex 우선 전환이라고 표현하지 말 것.
@@ -128,7 +133,7 @@ Claude Code 원본 하네스를 Codex로 전환하는 작업이 아니다.
 - [x] runtime adapter와 runtime overlay의 책임이 중복되거나 어긋나는 부분은 없는가.
 - [x] 삭제된 원본 reference의 세부 규칙이 현재 문서에 모두 적절히 재배치됐는가.
 - [x] 실제 샘플 프로젝트에 설치해 trigger eval과 드라이런을 수행했는가.
-- [ ] 실제 Codex/Claude Code 런타임에서 하네스 생성까지 실행 검증했는가.
+- [ ] 실제 Codex/Claude Code 런타임에서 하네스 생성까지 실행 검증했는가. Codex는 스킬 로딩/설계 판단과 대체 산출물 검증까지 완료했고, CLI 파일 생성 완료는 샌드박스 state DB 쓰기 제한으로 미완료다.
 - [x] runtime overlay 문서의 영문/국문 문체를 전체 문서 톤에 맞춰 정리할 필요가 있는가.
 - [x] `references/` 본문에 작업 보고서/원본 비교 표현이 남아있지 않은가.
 

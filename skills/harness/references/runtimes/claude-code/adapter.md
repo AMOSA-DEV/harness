@@ -13,13 +13,16 @@
 | Agent definition | `.claude/agents/{agent-name}.md` |
 | Orchestrator skill | `.claude/skills/{orchestrator-name}/SKILL.md` |
 | Runtime workspace | `_workspace/` |
+| Audit outputs | `_workspace/audit/` |
+| Machine handoff outputs | `_workspace/machine/` |
+| Human review outputs | `_workspace/human/` |
 
 ## Adapter Rules
 
 - Agent Teams가 활성화된 환경에서는 `TeamCreate`, `SendMessage`, `TaskCreate`, `TaskUpdate`를 사용할 수 있다.
 - Agent Teams가 비활성화된 환경에서는 파일 기반 순차 실행 또는 `Agent(..., run_in_background=true)` 패턴으로 대체한다.
 - `SendMessage({to: "all"})` 브로드캐스트는 비용이 높으므로 드물게 사용한다.
-- 세션당 활성 팀은 하나로 보고, Phase 전환 시 `_workspace/`에 산출물을 저장한 뒤 팀을 재구성한다.
+- 세션당 활성 팀은 하나로 보고, Phase 전환 시 목적에 맞는 `_workspace/` 하위 폴더에 산출물을 저장한 뒤 팀을 재구성한다.
 - 팀원은 자기 팀을 다시 생성하지 않는다. 중첩 구조가 필요하면 평탄화하거나 2단계는 subagent 호출로 구현한다.
 - 모든 재사용 역할은 `.claude/agents/{name}.md`에 정의한다.
 - 스킬은 `.claude/skills/{name}/SKILL.md`에 둔다.
@@ -34,7 +37,7 @@
 | Reviewer | 팀원 또는 별도 `Agent` |
 | Direct communication | `SendMessage` |
 | Shared task state | `TaskCreate` / `TaskUpdate` |
-| Shared workspace | `_workspace/{phase}_{role}_{artifact}.md` |
+| Shared workspace | `_workspace/machine/{phase}_{role}_{artifact}.md` |
 | Handoff | `HANDOFF.md`, `ROADMAP.md`, `context/LESSONS.md` 갱신 |
 
 ## Model Mapping

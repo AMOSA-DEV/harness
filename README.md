@@ -20,14 +20,16 @@
 
 ```bash
 git clone git@github.com:AMOSA-DEV/harness.git
-cp -r harness/skills/harness ~/.codex/skills/harness
+mkdir -p ~/.codex/skills
+cp -R harness/skills/harness ~/.codex/skills/
 ```
 
 ### Claude Code
 
 ```bash
 git clone git@github.com:AMOSA-DEV/harness.git
-cp -r harness/skills/harness ~/.claude/skills/harness
+mkdir -p ~/.claude/skills
+cp -R harness/skills/harness ~/.claude/skills/
 ```
 
 If you download the ZIP instead of cloning, extract it first and copy the same `skills/harness` directory to your runtime's global skills folder.
@@ -79,6 +81,9 @@ context-harness/
 │   │   ├── templates/
 │   │   └── examples/
 ├── _workspace/
+│   ├── audit/
+│   ├── machine/
+│   └── human/
 ├── LICENSE
 ├── NOTICE
 └── README.md

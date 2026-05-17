@@ -30,9 +30,9 @@ Fan-out/Fan-in은 같은 입력을 여러 역할이 독립적으로 검토한 �
 
 | 역할 | 책임 | 출력 |
 |---|---|---|
-| distributor | 입력을 관점별 작업 패킷으로 나눈다 | `_workspace/01_work_packets.md` |
-| specialist-n | 맡은 관점에서 독립 분석한다 | `_workspace/02_specialist_n.md` |
-| integrator | 결과를 합치고 충돌을 정리한다 | `_workspace/03_integrated.md` |
+| distributor | 입력을 관점별 작업 패킷으로 나눈다 | `_workspace/machine/01_work_packets.md` |
+| specialist-n | 맡은 관점에서 독립 분석한다 | `_workspace/machine/02_specialist_n.md` |
+| integrator | 결과를 합치고 충돌을 정리한다 | `_workspace/machine/03_integrated.md` |
 
 ## 오케스트레이션
 

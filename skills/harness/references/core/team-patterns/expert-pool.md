@@ -35,7 +35,7 @@ Expert Pool은 라우터가 입력을 분류하고 필요한 전문가만 호출
 ## 오케스트레이션
 
 1. router가 요청 유형과 필요한 전문가를 정리한다.
-2. router는 선택 이유를 `_workspace/01_router_plan.md`에 남긴다.
+2. router는 선택 이유를 `_workspace/machine/01_router_plan.md`에 남긴다.
 3. 선택된 전문가만 실행한다.
 4. 전문가가 하나면 결과를 바로 검증한다.
 5. 전문가가 둘 이상이면 integrator가 결과를 합친다.

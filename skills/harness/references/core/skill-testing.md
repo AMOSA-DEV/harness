@@ -26,7 +26,7 @@
 | with_skill | 새 스킬을 읽고 수행 |
 | baseline | 스킬 없음 또는 수정 전 스킬 |
 
-결과는 `_workspace/iteration-{n}/eval-{name}/` 아래에 보존한다.
+결과는 `_workspace/audit/skill-evals/iteration-{n}/eval-{name}/` 아래에 보존한다.
 
 Baseline 선택:
 
@@ -133,7 +133,7 @@ near-miss가 중요하다. 키워드는 비슷하지만 다른 스킬이나 직�
 ## Workspace Layout
 
 ```text
-_workspace/skill-evals/{skill-name}/
+_workspace/audit/skill-evals/{skill-name}/
 ├── iteration-1/
 │   ├── eval-{descriptive-name}/
 │   │   ├── eval_metadata.json

@@ -43,7 +43,7 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 
 | Role | Responsibility | Skill | Input | Output |
 |---|---|---|---|---|
-| {role} | {responsibility} | {skill-name} | {input} | `_workspace/{phase}_{role}_{artifact}.md` |
+| {role} | {responsibility} | {skill-name} | {input} | `_workspace/machine/{phase}_{role}_{artifact}.md` |
 
 역할 간 직접 협업이 필요하면 다음 항목을 추가한다:
 
@@ -55,13 +55,16 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 
 1. pointer file 존재 여부 확인
 2. context/세션 파일 존재 여부 확인
-3. `_workspace/` 존재 여부 확인
+3. `_workspace/` 존재 여부와 목적별 폴더 확인
+   - `_workspace/audit/`: 감사, QA, 구조 검증 결과
+   - `_workspace/machine/`: 재작업과 부분 재실행에 필요한 역할별 산출물
+   - `_workspace/human/`: HUMAN 검토용 최종 산출물
 4. 실행 유형 결정:
    - `_workspace/` 없음: 초기 실행
    - `_workspace/` 있음 + 부분 수정 요청: 부분 재실행
    - `_workspace/` 있음 + 새 입력: 이전 workspace를 timestamp 폴더로 보존 후 새 실행
 5. 부분 재실행이면 수정 대상 역할, 입력 파일, 재검증 범위를 명시한다.
-6. 새 실행이면 이전 workspace 보존 위치를 기록한다.
+6. 새 실행이면 `_workspace/` 전체를 `_workspace_archive/YYYYMMDD_HHMMSS/` 또는 프로젝트 표준 timestamp 백업 경로에 보존하고, 백업 위치를 기록한다.
 7. 기존 역할/스킬이 있으면 오케스트레이터가 참조하는 이름과 실제 파일명을 대조한다.
 8. 런타임 도구가 사용 가능한지 확인하고, 불가능한 도구는 같은 산출물을 만드는 fallback으로 바꾼다.
 
@@ -71,7 +74,7 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 2. `ROADMAP.md`, `BRIEF.md`, `context/WORKING-RULES.md`를 먼저 읽기
 3. 작업에 필요한 추가 context 파일 읽기
 4. 사용자 숙련도와 설명 수준을 추정할 수 있는 근거가 있으면 작업 패킷의 커뮤니케이션 기준에 반영한다.
-5. `_workspace/00_input/`에 입력 스냅샷 저장
+5. `_workspace/machine/00_input/`에 입력 스냅샷 저장
 6. 역할별 작업 패킷 작성
 7. Phase 간 의존성을 정리한다.
 
@@ -97,7 +100,7 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 - 큰 산출물은 반환값보다 파일에 저장한다.
 - 실패한 역할이 있으면 최종 산출물에 누락을 표시한다.
 - 런타임이 병렬 실행을 지원하지 않으면 순차 실행한다.
-- 병렬 또는 협업 실행을 하더라도 durable output은 `_workspace/`에 남긴다.
+- 병렬 또는 협업 실행을 하더라도 durable output은 목적에 맞게 `_workspace/audit/`, `_workspace/machine/`, `_workspace/human/`에 남긴다.
 - Phase별 실행 형태가 바뀌면 이전 Phase의 파일 산출물을 다음 Phase 입력으로 넘긴다.
 - 역할이 이전 산출물을 수정하는 경우 새로 만들기 전에 기존 파일을 읽고 사용자 피드백만 반영한다.
 
@@ -108,11 +111,13 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 3. 중복 제거
 4. 누락된 역할이나 실패한 영역 표시
 5. 최종 산출물 작성
+   - 재실행 입력이나 역할 간 handoff는 `_workspace/machine/`에 둔다.
+   - HUMAN 검토용 최종본은 `_workspace/human/`에 둔다.
 
 데이터 흐름을 문서 안에 남긴다:
 
 ```text
-[Input/context] -> [roles] -> [_workspace role outputs] -> [integration] -> [final output]
+[Input/context] -> [roles] -> [_workspace/machine role outputs] -> [integration] -> [_workspace/human final output]
 ```
 
 ### 8. Phase 4: Validation
@@ -127,7 +132,7 @@ description에는 초기 실행뿐 아니라 후속 작업 키워드를 반드�
 - 부분 재실행이면 영향받은 역할과 경계면만 다시 검증했는지 확인
 - 런타임 delegation 없이 순차 fallback으로도 같은 파일 산출물이 나오는지 확인
 
-검증 결과는 `_workspace/qa_report.md`에 저장한다.
+검증 결과는 `_workspace/audit/qa_report.md`에 저장한다.
 
 검증 판정은 다음 중 하나로 남긴다:
 
@@ -162,7 +167,7 @@ pointer file에는 긴 변경 이력을 넣지 않는다.
 - [ ] `ROADMAP.md`에 진행 상태, 우선순위, 검증 계획 변경 반영
 - [ ] `context/LESSONS.md`에 반복될 판단, 실수, 합의, 도메인 규칙 기록
 - [ ] `BRIEF.md`에 세션 목표 달성 여부 기록
-- [ ] `_workspace/` 보존 여부 확인
+- [ ] `_workspace/` 목적별 폴더와 백업 위치 확인
 
 체크리스트 항목을 모두 확인한 후에만 "작업 완료"를 보고한다. 갱신이 과한 작은 작업이면 어떤 파일을 갱신하지 않았는지와 이유를 짧게 남긴다. 하네스 생성, 수정, 감사, 대규모 실행은 기본적으로 갱신 대상이다.
 
@@ -182,7 +187,7 @@ pointer file에는 긴 변경 이력을 넣지 않는다.
 
 When execution shape changes between phases:
 
-1. Save the current phase outputs under `_workspace/`.
+1. Save the current phase outputs under the appropriate `_workspace/` subfolder.
 2. Record the next phase inputs.
 3. Close or stop roles that are no longer needed when the runtime requires it.
 4. Start the next phase roles with explicit file inputs.

@@ -8,16 +8,16 @@ Codex 고유 실행 방식을 보여주는 참고 문서다. 공통 패턴은 `r
 
 | Role | 권장 실행 | Scope | Output |
 |---|---|---|---|
-| official-researcher | explorer 또는 메인 세션 | 공식 문서/블로그 | `_workspace/research_official.md` |
-| media-researcher | explorer 또는 메인 세션 | 미디어/투자 | `_workspace/research_media.md` |
-| community-researcher | explorer 또는 메인 세션 | 커뮤니티/SNS | `_workspace/research_community.md` |
-| background-researcher | explorer 또는 메인 세션 | 배경/경쟁/학술 | `_workspace/research_background.md` |
+| official-researcher | explorer 또는 메인 세션 | 공식 문서/블로그 | `_workspace/machine/research_official.md` |
+| media-researcher | explorer 또는 메인 세션 | 미디어/투자 | `_workspace/machine/research_media.md` |
+| community-researcher | explorer 또는 메인 세션 | 커뮤니티/SNS | `_workspace/machine/research_community.md` |
+| background-researcher | explorer 또는 메인 세션 | 배경/경쟁/학술 | `_workspace/machine/research_background.md` |
 
 Codex 구현 포인트:
 
 - 독립 조사 역할은 explorer/worker 후보로 분리하고, 메인 세션이 결과를 통합한다.
-- 직접 팀 통신은 보장하지 않는다. 상호 영향 정보는 메인 세션이 `send_input`으로 중계하거나 `_workspace/notes.md`에 기록한다.
-- 각 역할은 자기 산출물을 `_workspace/`에 남긴다.
+- 직접 팀 통신은 보장하지 않는다. 상호 영향 정보는 메인 세션이 `send_input`으로 중계하거나 `_workspace/machine/notes.md`에 기록한다.
+- 각 역할은 자기 산출물을 `_workspace/machine/`에 남긴다.
 - 통합자는 모든 파일을 읽고 출처, 상충 정보, 미검증 범위를 병기한다.
 - delegation을 쓰지 않는 실행에서는 메인 세션이 역할별 heading을 유지하며 순차 조사한다.
 
@@ -27,12 +27,12 @@ Codex 구현 포인트:
 
 | Role | 권장 실행 | Scope | Output |
 |---|---|---|---|
-| worldbuilder | 메인 세션 또는 worker | 세계관, 물리/사회/기술 토대 | `_workspace/01_worldbuilder_setting.md` |
-| character-designer | 메인 세션 또는 worker | 인물, 계급, 관계 | `_workspace/01_character_profiles.md` |
-| plot-architect | 메인 세션 또는 worker | 플롯 구조, 갈등, 장면 흐름 | `_workspace/01_plot_outline.md` |
-| prose-stylist | 메인 세션 또는 worker | 초안 작성과 수정 | `_workspace/02_prose_draft.md` |
-| science-consultant | 메인 세션 또는 reviewer | 과학 검증 | `_workspace/03_science_review.md` |
-| continuity-manager | 메인 세션 또는 reviewer | 설정/장면 일관성 검증 | `_workspace/03_continuity_review.md` |
+| worldbuilder | 메인 세션 또는 worker | 세계관, 물리/사회/기술 토대 | `_workspace/machine/01_worldbuilder_setting.md` |
+| character-designer | 메인 세션 또는 worker | 인물, 계급, 관계 | `_workspace/machine/01_character_profiles.md` |
+| plot-architect | 메인 세션 또는 worker | 플롯 구조, 갈등, 장면 흐름 | `_workspace/machine/01_plot_outline.md` |
+| prose-stylist | 메인 세션 또는 worker | 초안 작성과 수정 | `_workspace/human/02_prose_draft.md` |
+| science-consultant | 메인 세션 또는 reviewer | 과학 검증 | `_workspace/audit/03_science_review.md` |
+| continuity-manager | 메인 세션 또는 reviewer | 설정/장면 일관성 검증 | `_workspace/audit/03_continuity_review.md` |
 
 Codex 구현 포인트:
 
@@ -48,8 +48,8 @@ Codex 구현 포인트:
 
 | Role | 권장 실행 | Scope | Output |
 |---|---|---|---|
-| webtoon-artist | worker 또는 메인 세션 | 패널 생성 또는 재생성 | `_workspace/panels/` |
-| webtoon-reviewer | explorer/reviewer 또는 메인 세션 | 구도, 캐릭터 일관성, 텍스트 가독성 검수 | `_workspace/review_report.md` |
+| webtoon-artist | worker 또는 메인 세션 | 패널 생성 또는 재생성 | `_workspace/human/panels/` |
+| webtoon-reviewer | explorer/reviewer 또는 메인 세션 | 구도, 캐릭터 일관성, 텍스트 가독성 검수 | `_workspace/audit/review_report.md` |
 
 Codex 구현 포인트:
 
@@ -66,9 +66,9 @@ Codex 구현 포인트:
 
 | Role | 권장 실행 | Scope | Output |
 |---|---|---|---|
-| security | explorer 또는 worker | 인증, 권한, 주입, secret 노출 | `_workspace/review_security.md` |
-| performance | explorer 또는 worker | 쿼리, 렌더링, 캐시, N+1 | `_workspace/review_performance.md` |
-| test | explorer 또는 worker | 테스트 누락, fixture, CI 리스크 | `_workspace/review_tests.md` |
+| security | explorer 또는 worker | 인증, 권한, 주입, secret 노출 | `_workspace/audit/review_security.md` |
+| performance | explorer 또는 worker | 쿼리, 렌더링, 캐시, N+1 | `_workspace/audit/review_performance.md` |
+| test | explorer 또는 worker | 테스트 누락, fixture, CI 리스크 | `_workspace/audit/review_tests.md` |
 
 Codex 구현 포인트:
 
@@ -86,8 +86,8 @@ Codex 구현 포인트:
 
 | Role | 권장 실행 | Scope | Output |
 |---|---|---|---|
-| supervisor | 메인 세션 | 파일 목록, batch, 의존성, 통합 | `_workspace/task-ledger.md` |
-| worker-n | worker 또는 메인 세션 | 할당된 파일 묶음 처리 | `_workspace/migration_worker_n.md` |
+| supervisor | 메인 세션 | 파일 목록, batch, 의존성, 통합 | `_workspace/machine/task-ledger.md` |
+| worker-n | worker 또는 메인 세션 | 할당된 파일 묶음 처리 | `_workspace/machine/migration_worker_n.md` |
 
 Codex 구현 포인트:
 
@@ -104,9 +104,9 @@ Codex 구현 포인트:
 ```text
 1. Phase 0: context와 `_workspace/` 상태 확인
 2. Phase 1: 역할별 작업 패킷 작성
-3. Phase 2A: official-researcher 역할을 메인 세션에서 수행 -> `_workspace/research_official.md`
-4. Phase 2B: media-researcher 역할을 메인 세션에서 수행 -> `_workspace/research_media.md`
-5. Phase 2C: community-researcher 역할을 메인 세션에서 수행 -> `_workspace/research_community.md`
+3. Phase 2A: official-researcher 역할을 메인 세션에서 수행 -> `_workspace/machine/research_official.md`
+4. Phase 2B: media-researcher 역할을 메인 세션에서 수행 -> `_workspace/machine/research_media.md`
+5. Phase 2C: community-researcher 역할을 메인 세션에서 수행 -> `_workspace/machine/research_community.md`
 6. Phase 3: 통합 보고서 작성
 7. Phase 4: `references/core/harness-validation-checklist.md` 기준 검증
 8. Phase 5: HANDOFF/ROADMAP/LESSONS/BRIEF 갱신 필요 여부 확인

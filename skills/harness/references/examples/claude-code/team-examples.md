@@ -8,10 +8,10 @@ Claude Code 고유 실행 방식을 보여주는 참고 문서다. 공통 패턴
 
 | Role | Type | Scope | Output |
 |---|---|---|---|
-| official-researcher | `general-purpose` | 공식 문서/블로그 | `_workspace/research_official.md` |
-| media-researcher | `general-purpose` | 미디어/투자 | `_workspace/research_media.md` |
-| community-researcher | `general-purpose` | 커뮤니티/SNS | `_workspace/research_community.md` |
-| background-researcher | `general-purpose` | 배경/경쟁/학술 | `_workspace/research_background.md` |
+| official-researcher | `general-purpose` | 공식 문서/블로그 | `_workspace/machine/research_official.md` |
+| media-researcher | `general-purpose` | 미디어/투자 | `_workspace/machine/research_media.md` |
+| community-researcher | `general-purpose` | 커뮤니티/SNS | `_workspace/machine/research_community.md` |
+| background-researcher | `general-purpose` | 배경/경쟁/학술 | `_workspace/machine/research_background.md` |
 
 Claude Code 구현 포인트:
 
@@ -19,7 +19,7 @@ Claude Code 구현 포인트:
 - `TeamCreate`로 조사 팀을 만들고, `TaskCreate`로 조사 범위를 나눠 등록한다.
 - 흥미로운 발견은 필요한 팀원에게만 메시지로 공유한다.
 - 상충 정보가 나오면 팀원끼리 직접 토론하되, 최종 통합자는 출처와 근거를 병기한다.
-- durable output은 반드시 `_workspace/`에 남긴다.
+- durable output은 목적에 맞는 `_workspace/` 하위 폴더에 남긴다.
 - 통합자는 모든 파일을 읽고 상충 정보를 병기한다.
 
 통신 예시:
@@ -37,12 +37,12 @@ all members -> shared tasks: 진행률 업데이트
 
 | Role | Scope | Runtime shape | Output |
 |---|---|---|---|
-| worldbuilder | 세계관, 물리/사회/기술 토대 | Team member | `_workspace/01_worldbuilder_setting.md` |
-| character-designer | 인물, 계급, 관계 | Team member | `_workspace/01_character_profiles.md` |
-| plot-architect | 플롯 구조, 갈등, 장면 흐름 | Team member | `_workspace/01_plot_outline.md` |
-| prose-stylist | 초안 작성과 수정 | Subagent or sequential role | `_workspace/02_prose_draft.md` |
-| science-consultant | 과학 검증 | Team member | `_workspace/03_science_review.md` |
-| continuity-manager | 설정/장면 일관성 검증 | Team member | `_workspace/03_continuity_review.md` |
+| worldbuilder | 세계관, 물리/사회/기술 토대 | Team member | `_workspace/machine/01_worldbuilder_setting.md` |
+| character-designer | 인물, 계급, 관계 | Team member | `_workspace/machine/01_character_profiles.md` |
+| plot-architect | 플롯 구조, 갈등, 장면 흐름 | Team member | `_workspace/machine/01_plot_outline.md` |
+| prose-stylist | 초안 작성과 수정 | Subagent or sequential role | `_workspace/human/02_prose_draft.md` |
+| science-consultant | 과학 검증 | Team member | `_workspace/audit/03_science_review.md` |
+| continuity-manager | 설정/장면 일관성 검증 | Team member | `_workspace/audit/03_continuity_review.md` |
 
 Claude Code 구현 포인트:
 
@@ -51,7 +51,7 @@ Claude Code 구현 포인트:
 - Phase 2는 팀을 정리한 뒤 `prose-stylist`를 단독 호출한다. 단독 집필은 팀 조율보다 파일 입력이 중요하다.
 - Phase 3은 `science-consultant`와 `continuity-manager`로 새 리뷰 팀을 만든다. 물리 오류가 설정 일관성에 영향을 주면 서로 공유한다.
 - Phase 4는 리뷰 결과 파일을 입력으로 `prose-stylist`가 수정한다.
-- 세션당 활성 팀을 하나로 제한해야 하는 환경에서는 Phase 전환마다 `_workspace/`에 산출물을 저장하고 팀을 재구성한다.
+- 세션당 활성 팀을 하나로 제한해야 하는 환경에서는 Phase 전환마다 목적에 맞는 `_workspace/` 하위 폴더에 산출물을 저장하고 팀을 재구성한다.
 
 ## Webtoon Producer-Reviewer
 
@@ -59,8 +59,8 @@ Claude Code 구현 포인트:
 
 | Role | Scope | Runtime shape | Output |
 |---|---|---|---|
-| webtoon-artist | 패널 생성 또는 재생성 | Subagent or sequential role | `_workspace/panels/` |
-| webtoon-reviewer | 구도, 캐릭터 일관성, 텍스트 가독성 검수 | Subagent or sequential role | `_workspace/review_report.md` |
+| webtoon-artist | 패널 생성 또는 재생성 | Subagent or sequential role | `_workspace/human/panels/` |
+| webtoon-reviewer | 구도, 캐릭터 일관성, 텍스트 가독성 검수 | Subagent or sequential role | `_workspace/audit/review_report.md` |
 
 Claude Code 구현 포인트:
 

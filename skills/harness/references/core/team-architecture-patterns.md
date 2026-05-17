@@ -155,10 +155,10 @@
 
 재편 절차:
 
-1. 현재 단계의 산출물과 결정 사항을 `_workspace/`에 저장한다.
+1. 현재 단계의 산출물과 결정 사항을 목적에 맞는 `_workspace/` 하위 폴더에 저장한다.
 2. 다음 단계에서 필요한 역할, 스킬, 검증 기준을 다시 확인한다.
 3. 이전 역할이 계속 필요하지 않으면 종료하거나 비활성 상태로 둔다.
-4. 새 역할은 `_workspace/` 산출물과 context protocol을 읽고 시작한다.
+4. 새 역할은 `_workspace/machine/` 산출물과 context protocol을 읽고 시작한다.
 5. 재편 이유와 이어받을 파일을 HANDOFF에 남긴다.
 
 재편은 특히 Pipeline의 단계 전환, 복합 패턴의 병렬 구간 진입/종료, Hierarchical Delegation의 도메인별 작업 종료 시 유용하다.

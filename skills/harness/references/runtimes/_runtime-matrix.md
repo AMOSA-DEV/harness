@@ -15,7 +15,7 @@
 | Delegation | 사용 가능하고 허용된 경우 `spawn_agent`, `send_input`, `wait_agent`, `close_agent` | 사용 가능한 경우 `TeamCreate`, `SendMessage`, `TaskCreate`, `TaskUpdate`, `Agent` |
 | 직접 팀 통신 | 보장되지 않음 | Agent Teams 환경에서 지원 |
 | 공유 작업 상태 | file ledger 또는 orchestrator checklist | 사용 가능한 경우 `TaskCreate`/`TaskUpdate` |
-| 기본 교환 방식 | 파일 기반 `_workspace/` + 반환 요약 | 파일 기반 `_workspace/` + 팀 메시지/task |
+| 기본 교환 방식 | 파일 기반 `_workspace/machine/` + 반환 요약 | 파일 기반 `_workspace/machine/` + 팀 메시지/task |
 | 모델 이름 | GPT/Codex 모델명. 대개 세션에서 상속 | `haiku`, `sonnet`, `opus` |
 | effort 제어 | 사용 가능한 경우 reasoning effort | model tier 선택 |
 | 수동 편집 | `apply_patch` 우선 | Claude Code edit/write 도구 |
@@ -39,7 +39,7 @@
 Claude Code 자료를 Codex까지 지원하는 구조로 옮길 때는 다음을 따른다:
 
 1. 각 지시를 core, runtime-specific, context-protocol, template, example, obsolete로 다시 분류한다.
-2. core team logic과 파일 기반 `_workspace/` 교환은 보존한다.
+2. core team logic과 파일 기반 `_workspace/audit/`, `_workspace/machine/`, `_workspace/human/` 교환은 보존한다.
 3. Claude Code team primitive는 명시적으로 허용된 경우에만 Codex delegation으로 바꾼다.
 4. orchestrator가 메인 세션에서도 실행될 수 있도록 fallback 경로를 보존한다.
 5. `.claude`를 `.codex`로 단순 치환하지 않는다. 역할 semantics와 도구 가용성이 다르다.
@@ -54,4 +54,4 @@ Claude Code 자료를 Codex까지 지원하는 구조로 옮길 때는 다음을
 | 역할 실행 방식 | Delegation | Agent Teams / Subagent |
 | 병렬 역할 | spawned worker/explorer | Team member 또는 background `Agent` |
 | 역할 간 중계 | 메인 세션의 `send_input` 또는 파일 기록 | `SendMessage` 또는 공유 task |
-| 공유 상태 | `_workspace/` ledger | `TaskCreate`/`TaskUpdate`와 `_workspace/` |
+| 공유 상태 | `_workspace/machine/` ledger | `TaskCreate`/`TaskUpdate`와 `_workspace/machine/` |

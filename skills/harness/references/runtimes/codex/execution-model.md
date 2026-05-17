@@ -26,7 +26,7 @@ Delegation은 다음 조건을 모두 만족할 때만 사용한다:
   └─ 결과 통합 후 close_agent
 ```
 
-직접 team channel이나 공유 task primitive가 보장되지 않으므로, 지속 상태는 `_workspace/` 파일과 오케스트레이터 체크리스트에 둔다.
+직접 team channel이나 공유 task primitive가 보장되지 않으므로, 지속 상태는 `_workspace/machine/` 파일과 오케스트레이터 체크리스트에 둔다.
 
 ## Agent Type 선택
 
@@ -57,7 +57,7 @@ worker에게 넘기는 프롬프트에는 다음을 포함한다:
 - 맡은 역할과 역할 스펙 요약
 - 읽을 파일 목록
 - 소유 파일 또는 책임 범위
-- `_workspace/` 아래 출력 경로
+- `_workspace/machine/` 아래 출력 경로
 - 같은 코드베이스에서 다른 작업자가 있을 수 있다는 안내
 - 관련 없는 변경을 되돌리지 말라는 지시
 - 파일을 수정했다면 최종 응답에 변경 파일 목록을 적으라는 지시
@@ -92,7 +92,7 @@ description: "{역할과 트리거를 1-2문장으로 설명}"
 
 ## 협업 및 경계
 - 이 역할이 소유한 파일/책임 범위: {scope}
-- 다른 역할의 산출물이 필요한 경우 `_workspace/` 경로를 입력으로 받는다.
+- 다른 역할의 산출물이 필요한 경우 `_workspace/machine/` 경로를 입력으로 받는다.
 - 상충되는 판단은 삭제하지 말고 근거와 함께 보고한다.
 
 ## 실패 처리
@@ -118,7 +118,7 @@ description: "{역할과 트리거를 1-2문장으로 설명}"
 - {owned-files-or-responsibility}
 
 출력:
-- `_workspace/{phase}_{agent}_{artifact}.md`
+- `_workspace/machine/{phase}_{agent}_{artifact}.md`
 
 주의:
 - 당신은 혼자 작업하는 것이 아니다. 다른 작업자가 같은 코드베이스에서 작업할 수 있다.
@@ -134,7 +134,7 @@ description: "{역할과 트리거를 1-2문장으로 설명}"
 
 결과가 도착하면 메인 세션이 다음을 수행한다:
 
-1. worker 최종 응답과 `_workspace/` 산출물을 읽는다.
+1. worker 최종 응답과 `_workspace/machine/` 산출물을 읽는다.
 2. 누락, 충돌, 미검증 범위를 표시한다.
 3. 필요한 경우 영향받은 역할만 다시 실행한다.
 4. 더 필요 없는 spawned agent는 `close_agent`로 닫는다.
@@ -144,7 +144,7 @@ description: "{역할과 트리거를 1-2문장으로 설명}"
 delegation이 불가능하거나 요청되지 않았으면 다음을 지킨다:
 
 1. 메인 세션이 역할을 순서대로 수행한다.
-2. 각 역할 산출물을 별도 `_workspace/` 파일에 남긴다.
+2. 각 역할 산출물을 별도 `_workspace/machine/` 파일에 남긴다.
 3. 산출물 제목에 역할명을 유지한다.
 4. 병렬 설계와 동일한 검증 기준을 적용한다.
 5. 메인 세션이 대체 수행한 역할은 최종 보고에 표시한다.
