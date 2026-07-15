@@ -1,7 +1,7 @@
 {
   "name": "context-harness",
-  "description": "Runtime-aware team-architecture factory for Claude Code and Codex. Turns a project brief into role specs, skills, orchestration guidance, durable context files, and file-based workspace handoff while separating common design from runtime-specific adapters.",
-  "version": "2.0.0",
+  "description": "Context-first project setup. Creates and maintains minimal AGENTS.md, ROADMAP.md, durable context files, and an optional user-approved workspace without generating agent teams or orchestrators.",
+  "version": "3.0.0",
   "author": {
     "name": "AMOSA-DEV",
     "url": "https://github.com/AMOSA-DEV"
@@ -12,24 +12,15 @@
   "keywords": [
     "harness",
     "context-harness",
-    "team-architecture-factory",
-    "agent-team",
-    "runtime-aware",
+    "context-first",
+    "project-context",
+    "agents-md",
+    "roadmap",
     "codex",
-    "skill-architect",
-    "meta-skill",
-    "orchestration",
     "claude-code",
     "claude-code-plugin",
     "context-system",
-    "session-management",
-    "workspace-isolation",
-    "multi-agent",
-    "pipeline",
-    "fan-out-fan-in",
-    "expert-pool",
-    "producer-reviewer",
-    "supervisor",
-    "hierarchical-delegation"
+    "parallel-tasks",
+    "workspace-by-consent"
   ]
 }

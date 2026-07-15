@@ -2,86 +2,67 @@
 
 [English](README.md) | **한국어**
 
-> 런타임 인식 팀 아키텍처 팩토리. 프로젝트 설명을 Codex와 Claude Code에 맞는 에이전트 역할, 스킬, 오케스트레이션, 지속 컨텍스트로 변환합니다.
+> 프로젝트가 AI와 오래 협업하는 데 필요한 최소 컨텍스트 구조를 구성하고 정리합니다.
 
 ## 특징
 
-- **런타임 인식 생성** — 공통 하네스 설계와 Codex/Claude Code 구현 차이를 분리
-- **컨텍스트 자동 생성** — `context/`, `BRIEF.md`, `HANDOFF.md`, `ROADMAP.md` 생성
-- **에이전트/팀 아키텍처 설계** — 6가지 재사용 패턴 지원
-- **스킬 생성** — Progressive Disclosure로 컨텍스트를 가볍게 유지
-- **워크스페이스 분리** — 소스(`skills/`)와 런타임 산출물(`_workspace/`) 분리
+- **컨텍스트 우선** — 에이전트·스킬보다 프로젝트 지식과 작업 규칙을 먼저 정리
+- **최소 구조** — `AGENTS.md`, `ROADMAP.md`, `context/`만 기본 생성
+- **기존 구조 보존** — 이미 있는 지침과 산출물 체계를 강제 이전하지 않음
+- **병렬 작업 대응** — 공통 파일은 조정 작업만 갱신하고 개별 작업 상태는 분리
+- **승인형 Workspace** — `_workspace/`는 사용자 승인 후에만 생성
+
+## 기본 구조
+
+```text
+AGENTS.md
+ROADMAP.md
+context/
+├── ABOUT-ME.md
+├── BRAND-VOICE.md
+├── WORKING-RULES.md
+├── GLOSSARY.md
+└── LESSONS.md
+```
+
+승인한 프로젝트에서는 다음 구조를 추가합니다.
+
+```text
+_workspace/
+├── audit/
+├── human/
+└── machine/
+    └── tasks/
+```
+
+`BRIEF.md`와 `HANDOFF.md`는 기본 생성하지 않습니다. 현재 목표와 실행 과정은 대화가 관리하고, 병렬 작업 상태는 작업별 task 파일이 담당합니다.
 
 ## 설치
-
-> **Private repo입니다.** 직접 설치만 우선 지원합니다. Marketplace 패키징은 아직 주 경로가 아닙니다.
 
 ### Codex
 
 ```bash
-git clone git@github.com:AMOSA-DEV/harness.git
-cp -r harness/skills/harness ~/.codex/skills/harness
+mkdir -p ~/.codex/skills
+cp -R harness/skills/harness ~/.codex/skills/
 ```
 
 ### Claude Code
 
 ```bash
-git clone git@github.com:AMOSA-DEV/harness.git
-cp -r harness/skills/harness ~/.claude/skills/harness
+mkdir -p ~/.claude/skills
+cp -R harness/skills/harness ~/.claude/skills/
 ```
 
-ZIP으로 받았다면 압축을 푼 뒤 같은 `skills/harness` 디렉토리를 사용하는 런타임의 글로벌 스킬 폴더로 복사하면 됩니다.
-
-## 사용법
+## 사용 예시
 
 ```text
-하네스 구성해줘
-Codex용 하네스 구성해줘
-Claude Code용 하네스 구성해줘
-Build a harness for this project
+이 프로젝트에 최소 하네스를 구성해줘
+AGENTS.md와 프로젝트 컨텍스트를 정리해줘
+기존 하네스를 담백하게 정리해줘
+현재 컨텍스트 구조를 감사해줘
 ```
 
-## 런타임 모델
-
-Harness는 두 층으로 나뉩니다.
-
-```text
-Common Core: 하네스가 무엇을 설계해야 하는가
-Runtime Adapter: 특정 AI 런타임에서 어떻게 표현하고 실행하는가
-```
-
-현재 런타임 어댑터:
-
-| Runtime | Pointer file | Skills | Agent specs |
-|---|---|---|---|
-| Codex | `AGENTS.md` | `.codex/skills/` | `.codex/agents/` |
-| Claude Code | `CLAUDE.md` | `.claude/skills/` | `.claude/agents/` |
-
-## 아키텍처 패턴
-
-1. **파이프라인** — 순차 의존 작업
-2. **팬아웃/팬인** — 병렬 작업 후 통합
-3. **전문가 풀** — 입력 유형에 따라 적절한 전문가 선택
-4. **생성-검증** — 생성, 검증, 수정
-5. **감독자** — 중앙 조율과 동적 배정
-6. **계층적 위임** — 계층적으로 자연스럽게 나뉘는 작업
-
-## 프로젝트 구조
-
-```text
-context-harness/
-├── skills/harness/
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── core/
-│   │   ├── runtimes/
-│   │   ├── templates/
-│   │   └── examples/
-├── _workspace/
-├── LICENSE
-├── NOTICE
-└── README.md
-```
+에이전트, 스킬, 오케스트레이터 생성은 이 스킬의 기본 범위가 아닙니다.
 
 ## 라이선스
 
