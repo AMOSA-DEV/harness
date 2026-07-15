@@ -1,0 +1,21 @@
+{
+  "name": "harness-marketplace",
+  "interface": {
+    "displayName": "AMOSA Harness"
+  },
+  "plugins": [
+    {
+      "name": "context-harness",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/AMOSA-DEV/harness.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "context-harness",
-  "description": "Runtime-aware team-architecture factory for Claude Code and Codex. Turns a project brief into role specs, skills, orchestration guidance, durable context files, and file-based workspace handoff while separating common design from runtime-specific adapters.",
-  "version": "2.0.0",
+  "description": "Context-first project setup for Codex. Creates and maintains minimal AGENTS.md, ROADMAP.md, durable context files, and an optional user-approved workspace without generating agent teams or orchestrators.",
+  "version": "3.0.0",
   "author": {
     "name": "AMOSA-DEV",
     "url": "https://github.com/AMOSA-DEV"
@@ -9,25 +9,35 @@
   "homepage": "https://github.com/AMOSA-DEV/harness",
   "repository": "https://github.com/AMOSA-DEV/harness",
   "license": "Apache-2.0",
+  "skills": "./skills/",
   "keywords": [
     "harness",
     "context-harness",
     "codex",
     "codex-plugin",
-    "runtime-aware",
-    "team-architecture-factory",
-    "role-spec",
-    "skill-architect",
-    "meta-skill",
-    "orchestration",
+    "context-first",
+    "project-context",
+    "agents-md",
+    "roadmap",
     "context-system",
-    "session-management",
-    "workspace-isolation",
-    "pipeline",
-    "fan-out-fan-in",
-    "expert-pool",
-    "producer-reviewer",
-    "supervisor",
-    "hierarchical-delegation"
-  ]
+    "parallel-tasks",
+    "workspace-by-consent"
+  ],
+  "interface": {
+    "displayName": "Context Harness",
+    "shortDescription": "Set up minimal durable project context",
+    "longDescription": "Create and maintain AGENTS.md, ROADMAP.md, durable context files, and an optional workspace for parallel AI tasks.",
+    "developerName": "AMOSA-DEV",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/AMOSA-DEV/harness",
+    "defaultPrompt": [
+      "Set up a minimal harness for this project.",
+      "Simplify this project's existing AI context.",
+      "Audit AGENTS.md, ROADMAP.md, and context files."
+    ]
+  }
 }
